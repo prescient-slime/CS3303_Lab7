@@ -15,6 +15,7 @@ public class DisplayActivity extends AppCompatActivity {
 
     @SuppressLint("Range")
     @Override
+    /*Initializes and builds table*/
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);

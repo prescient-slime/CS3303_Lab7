@@ -34,6 +34,7 @@ public class MyContentProvider extends ContentProvider {
     public MyContentProvider() {
     }
 
+    /*Initializes database and returns a boolean to indicate the creation of the db*/
     @Override
     public boolean onCreate() {
         boolean flag = false;
@@ -47,6 +48,7 @@ public class MyContentProvider extends ContentProvider {
         return flag;
     }
 
+    /*Searches the Database for something according to the arguments given*/
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
@@ -61,6 +63,7 @@ public class MyContentProvider extends ContentProvider {
         return cursor;
     }
 
+    /*Inserts a new line in the table*/
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
@@ -74,6 +77,7 @@ public class MyContentProvider extends ContentProvider {
         return uri.parse(TABLE_PHONEBOOK + "/" + id);
     }
 
+    /*updates the table (increases SQLITE values like count and such. Behind the scenes stuff)*/
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection,
                       @Nullable String[] selectionArgs) {
@@ -86,6 +90,7 @@ public class MyContentProvider extends ContentProvider {
         return rowsUpdated;
     }
 
+    /*removes a line from the database*/
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         // Implement this to handle requests to delete one or more rows.
@@ -99,6 +104,7 @@ public class MyContentProvider extends ContentProvider {
         return rowsDeleted;
     }
 
+    /*Supposed to get type of a field in the table. Not used in this program though.*/
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
@@ -106,12 +112,14 @@ public class MyContentProvider extends ContentProvider {
     }
 
 
-
+    /*Boilerplate code to generate table in SQLite statement*/
     private static class DatabaseHelper extends SQLiteOpenHelper {
+        /*constructor*/
         public DatabaseHelper(Context context){
             super(context,DATABASE_NAME,null,DATABASE_VERSION);
         }
         //-------------------------
+        /*Initialization of variables using global variables*/
         @Override
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             String create_phonebook_table = "CREATE TABLE " +TABLE_PHONEBOOK+ "("
@@ -122,6 +130,7 @@ public class MyContentProvider extends ContentProvider {
             sqLiteDatabase.execSQL(create_phonebook_table);
         }
         //--------------------------------------------
+        /*drops old table and recreates with new information if present*/
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PHONEBOOK);

@@ -1,5 +1,7 @@
 package com.example.phonebook;
 public class Contact {
+
+    /*Utility class used to store information on contacts in an object*/
     private int id;
     private String num;
     private String firstName;
